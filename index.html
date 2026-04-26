@@ -1,129 +1,36 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
-<title>My Life Dashboard</title>
-
-<style>
-
-body {
-
-  font-family: Arial;
-
-  background: #111;
-
-  color: white;
-
-  padding: 40px;
-
-}
-
-h1 {
-
-  text-align: center;
-
-}
-
-.container {
-
-  max-width: 600px;
-
-  margin: auto;
-
-}
-
-input {
-
-  padding: 10px;
-
-  width: 70%;
-
-}
-
-button {
-
-  padding: 10px;
-
-}
-
-li {
-
-  margin: 10px 0;
-
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body class="home-page">
+  <main class="dashboard-shell">
+    <header class="dashboard-header">
+      <p class="eyebrow">Study space</p>
+      <h1>Personal Dashboard</h1>
+      <p class="subtitle">A focused place for the tools you use every day.</p>
+    </header>
 
-<body>
-
-<h1>Life Dashboard</h1>
-
-<div class="container">
-
-<h2>To-Do List</h2>
-
-<input id="taskInput" placeholder="Add a task">
-
-<button onclick="addTask()">Add</button>
-
-<ul id="taskList"></ul>
-
-</div>
-
-<script>
-
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-function saveTasks() {
-
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-
-}
-
-function renderTasks() {
-
-  const list = document.getElementById("taskList");
-
-  list.innerHTML = "";
-
-  tasks.forEach(function(task) {
-
-    const li = document.createElement("li");
-
-    li.textContent = task;
-
-    list.appendChild(li);
-
-  });
-
-}
-
-function addTask() {
-
-  const input = document.getElementById("taskInput");
-
-  const task = input.value.trim();
-
-  if (task === "") return;
-
-  tasks.push(task);
-
-  saveTasks();
-
-  renderTasks();
-
-  input.value = "";
-
-}
-
-renderTasks();
-
-</script>
-
+    <section class="option-grid" aria-label="Dashboard options">
+      <a class="dashboard-option" href="todo.html" aria-label="Open To-Do List">
+        <span class="option-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img">
+            <rect x="14" y="8" width="38" height="48" rx="8"></rect>
+            <path d="M24 22l4 4 8-9"></path>
+            <path d="M24 36l4 4 8-9"></path>
+            <path d="M40 24h5"></path>
+            <path d="M40 38h5"></path>
+          </svg>
+        </span>
+        <span>
+          <strong>To-Do List</strong>
+          <small>Courses, tasks, and daily progress</small>
+        </span>
+      </a>
+    </section>
+  </main>
 </body>
-
 </html>

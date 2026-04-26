@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List | Personal Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="todo-shell">
+    <nav class="topbar" aria-label="Page">
+      <a class="back-link" href="index.html">Personal Dashboard</a>
+      <span id="todayLabel"></span>
+    </nav>
+
+    <section class="progress-band">
+      <div class="progress-copy">
+        <p class="eyebrow">Daily progress</p>
+        <h1>To-Do List</h1>
+        <p class="subtitle">Track today&apos;s work by class and keep your progress visible.</p>
+      </div>
+
+      <div class="pie-wrap" aria-label="Today task completion">
+        <div class="pie-chart" id="pieChart">
+          <div class="pie-center">
+            <strong id="progressPercent">0%</strong>
+            <span id="progressText">0 of 0 done</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls-band" aria-label="Add course">
+      <form class="course-form" id="courseForm">
+        <input id="courseInput" type="text" placeholder="Add a course or class" autocomplete="off">
+        <button type="submit">Add Course</button>
+      </form>
+    </section>
+
+    <section class="courses-grid" id="coursesGrid" aria-live="polite"></section>
+  </main>
+
+  <template id="courseTemplate">
+    <article class="course-card">
+      <div class="course-card-header">
+        <h2></h2>
+        <button class="icon-button remove-course" type="button" aria-label="Remove course">x</button>
+      </div>
+      <form class="task-form">
+        <input type="text" placeholder="Add today&apos;s task" autocomplete="off">
+        <button type="submit">Add</button>
+      </form>
+      <ul class="task-list"></ul>
+    </article>
+  </template>
+
+  <script src="todo.js"></script>
+</body>
+</html>
