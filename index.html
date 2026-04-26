@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>My Life Dashboard</title>
+
+<style>
+
+body {
+
+  font-family: Arial;
+
+  background: #111;
+
+  color: white;
+
+  padding: 40px;
+
+}
+
+h1 {
+
+  text-align: center;
+
+}
+
+.container {
+
+  max-width: 600px;
+
+  margin: auto;
+
+}
+
+input {
+
+  padding: 10px;
+
+  width: 70%;
+
+}
+
+button {
+
+  padding: 10px;
+
+}
+
+li {
+
+  margin: 10px 0;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Life Dashboard</h1>
+
+<div class="container">
+
+<h2>To-Do List</h2>
+
+<input id="taskInput" placeholder="Add a task">
+
+<button onclick="addTask()">Add</button>
+
+<ul id="taskList"></ul>
+
+</div>
+
+<script>
+
+function addTask() {
+
+  const input = document.getElementById("taskInput");
+
+  const task = input.value;
+
+  if(task === "") return;
+
+  const li = document.createElement("li");
+
+  li.textContent = task;
+
+  document.getElementById("taskList").appendChild(li);
+
+  input.value = "";
+
+}
+
+</script>
+
+</body>
+
+</html>
