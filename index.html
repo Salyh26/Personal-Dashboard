@@ -76,23 +76,51 @@ li {
 
 <script>
 
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks() {
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+}
+
+function renderTasks() {
+
+  const list = document.getElementById("taskList");
+
+  list.innerHTML = "";
+
+  tasks.forEach(function(task) {
+
+    const li = document.createElement("li");
+
+    li.textContent = task;
+
+    list.appendChild(li);
+
+  });
+
+}
+
 function addTask() {
 
   const input = document.getElementById("taskInput");
 
-  const task = input.value;
+  const task = input.value.trim();
 
-  if(task === "") return;
+  if (task === "") return;
 
-  const li = document.createElement("li");
+  tasks.push(task);
 
-  li.textContent = task;
+  saveTasks();
 
-  document.getElementById("taskList").appendChild(li);
+  renderTasks();
 
   input.value = "";
 
 }
+
+renderTasks();
 
 </script>
 
