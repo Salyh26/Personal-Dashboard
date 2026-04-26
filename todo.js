@@ -17,6 +17,8 @@ const progressText = document.getElementById("progressText");
 const todayLabel = document.getElementById("todayLabel");
 
 let courses = loadCourses();
+let currentProgressDegrees = 0;
+let progressAnimationId = null;
 
 todayLabel.textContent = dateFormatter.format(new Date());
 
@@ -80,9 +82,48 @@ function updateProgress() {
   const percent = tasks.length === 0 ? 0 : Math.round((completeCount / tasks.length) * 100);
   const degrees = Math.round((percent / 100) * 360);
 
-  pieChart.style.background = `conic-gradient(var(--green) ${degrees}deg, var(--line) ${degrees}deg)`;
+  animatePieTo(degrees);
   progressPercent.textContent = `${percent}%`;
   progressText.textContent = `${completeCount} of ${tasks.length} done`;
+}
+
+function animatePieTo(targetDegrees) {
+  const startDegrees = currentProgressDegrees;
+  const distance = targetDegrees - startDegrees;
+  const duration = 650;
+  const startTime = performance.now();
+
+  if (progressAnimationId) {
+    cancelAnimationFrame(progressAnimationId);
+  }
+
+  pieChart.classList.remove("is-bubbling");
+  void pieChart.offsetWidth;
+  pieChart.classList.add("is-bubbling");
+
+  function drawFrame(now) {
+    const elapsed = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - elapsed, 3);
+    const nextDegrees = startDegrees + distance * eased;
+
+    currentProgressDegrees = nextDegrees;
+    pieChart.style.background = `conic-gradient(var(--green) ${nextDegrees}deg, var(--line) ${nextDegrees}deg)`;
+
+    if (elapsed < 1) {
+      progressAnimationId = requestAnimationFrame(drawFrame);
+      return;
+    }
+
+    currentProgressDegrees = targetDegrees;
+    pieChart.style.background = `conic-gradient(var(--green) ${targetDegrees}deg, var(--line) ${targetDegrees}deg)`;
+    progressAnimationId = null;
+
+    window.setTimeout(() => {
+      pieChart.classList.remove("is-bubbling");
+    }, 180);
+  }
+
+  progressAnimationId = requestAnimationFrame(drawFrame);
 }
 
 function renderCourses() {
